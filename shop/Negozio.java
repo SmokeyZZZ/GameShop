@@ -1,17 +1,25 @@
 package com.company;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Negozio
 {
     private ArrayList<Videogame> catalogue = new ArrayList<>();
-    public void addGame(Videogame...games)
+
+    public ArrayList<Videogame> getCatalogue() {
+        return catalogue;
+    }
+
+    public void addGame()
     {
-        for(Videogame v : games)
-        {
-            catalogue.add(v);
-        }
+        Scanner scan =new Scanner(System.in);
+        System.out.println("inserisci nome : ");
+        String inputName = scan.next();
+        System.out.println("inserisci prezzo :");
+        double inputPrice = scan.nextDouble();
+        System.out.print("inserisci quante copie vuoi inserire: ");
+        int inputQuantity = scan.nextInt();
+        catalogue.add(new Videogame(inputName,inputPrice,inputQuantity));
     }
     public void Buy(User u)
     {
@@ -22,14 +30,18 @@ public class Negozio
             {
                 if(v.equals(vg)&&u.getCredit()>u.GetCart().GetAmount())
                 {
+                    vg.setQuantity(vg.getQuantity()-1);
                     toRemove.add(vg);
                     u.SetCredit(u.getCredit()-u.GetCart().GetAmount());
                 }
             }
         }
-        for(Videogame game: toRemove)
+        for(Videogame v:toRemove)
         {
-            catalogue.remove(game);
+            if(v.getQuantity()<=0)
+            {
+                catalogue.remove(v);
+            }
         }
 
     }
@@ -37,8 +49,9 @@ public class Negozio
     {
         for(Videogame v:catalogue)
         {
-            System.out.println(v.getId()+" "+v.getTitle()+" "+v.getCategory()+" "+v.getPrice());
+            System.out.println("titolo: "+v.getTitle()+" prezzo: "+v.getPrice()+" quantità in negozio: "+v.getQuantity());
         }
     }
+
 
 }

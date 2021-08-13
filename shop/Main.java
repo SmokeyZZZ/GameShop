@@ -6,6 +6,5 @@ public class Main
     {
         Program app = new Program();
         app.play();
-
     }
 }

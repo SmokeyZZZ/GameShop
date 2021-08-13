@@ -2,16 +2,20 @@ package com.company;
 
 public class Videogame
 {
-    private String title,category;
+    private String title;
     private double price;
+    private int quantity;
     private static int previousid = -1;
     private int id;
 
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-    public Videogame(String title, String category, double price) {
+    public Videogame(String title, double price, int quantity) {
         this.title = title;
-        this.category = category;
+        this.quantity = quantity;
         this.price = price;
         id = previousid +1;
         previousid += 1;
@@ -21,10 +25,7 @@ public class Videogame
         return title;
     }
 
-    public String getCategory()
-    {
-        return category;
-    }
+    public int getQuantity(){ return quantity; }
 
     public double getPrice()
 

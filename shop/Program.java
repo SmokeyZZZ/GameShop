@@ -5,57 +5,62 @@ import java.util.Scanner;
 public class Program
 {
     Negozio negozio;
-    Videogame gta,minecraft,fifa;
     User user;
     Scanner scan;
     public Program()
     {
-         negozio = new Negozio();
-         gta =  new Videogame("GTA","OPENWORLD",20.0);
-         minecraft=  new Videogame("Minecraft","Sandbox",25.00);
-         fifa = new Videogame("Fifa21","sport",69.99);
+        negozio = new Negozio();
          user = new User("David",1000);
-         negozio.addGame(gta,minecraft,fifa);
          scan = new Scanner(System.in);
     }
     public void play()
     {
         System.out.println("Salve cliente, benvenuto nel nostro negozio di videogame ");
-        char input = ' ';
-        do
+        AppFlow();
+    }
+    public void addToCart()
+    {
+        String name = scan.next();
+        for(Videogame v : negozio.getCatalogue())
         {
-            System.out.println("Seleziona un gioco  per inserirlo nel carrello, premere c per il conto,premere s per mostrare il tuo saldo, premere b per comprare o premere e per uscire");
-            negozio.ShowCatalogue();
-            input =scan.next().charAt(0);
-            switch(input)
+            if(v.getTitle().equals(name))
             {
-                case '0':
-                    user.GetCart().addGame(gta);
+                user.GetCart().GetCarrello().add(v);
+            }
+        }
+    }
+    public void AppFlow()
+    {
+        String input;
+        do {
+            System.out.println("digita ac per inserire un gioco all'interno del catalogo,");
+            System.out.println("premi a per aggiungere un gioco al tuo carrello, ");
+            System.out.println("premi c per mostrare il conto,premi s per mostrare il tuo saldo,premi e per uscire,premi b per comprare");
+            negozio.ShowCatalogue();
+             input = scan.next();
+            switch (input) {
+                case "ac":
+                    negozio.addGame();
                     break;
-                case '1':
-                    user.GetCart().addGame(minecraft);
+                case "a":
+                    addToCart();
                     break;
-                case '2':
-                    user.GetCart().addGame(fifa);
+                case "c":
+                    System.out.printf("totale carrello: %.2f$\n", user.GetCart().GetAmount());
                     break;
-                case 'c':
-                    System.out.println(user.GetCart().GetAmount());
+                case "s":
+                    System.out.printf("saldo disponibile: %.2f$\n", user.getCredit());
                     break;
-                case 'b':
+                case "e":
+                    System.out.println("uscita in corso");
+                    break;
+                case "b":
                     negozio.Buy(user);
                     break;
-                case 'e':
-                    break;
-                case 's':
-                    System.out.println(user.getCredit());
-                    break;
                 default:
-                    System.out.println("opzione non valida");
+                    System.out.println("opzione non esistente");
+                    break;
             }
-
-        }while(input!='e');
-
-
-
+        }while(input!="e");
     }
 }

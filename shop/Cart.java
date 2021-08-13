@@ -32,9 +32,8 @@ public class Cart
     {
         for(Videogame v: carrello)
         {
-            System.out.println(v.getId()+" "+v.getTitle()+" "+v.getCategory()+" "+v.getPrice());
+            System.out.println(v.getTitle()+" "+v.getPrice());
         }
     }
-
 
 }
