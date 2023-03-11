@@ -2,7 +2,10 @@ package com.company;
 import java.util.ArrayList;
 
 public class Cart
-{
+{  
+
+
+    
     private ArrayList<Videogame> carrello = new ArrayList<>();
     private double amount;
     public  ArrayList<Videogame>  GetCarrello()
